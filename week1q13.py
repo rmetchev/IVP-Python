@@ -95,7 +95,7 @@ def main_py_plot():
     f.canvas.set_window_title('Rotation')
     for i in range(2):
         for j in range(2):
-            n = 90*(2*i + j + 1 )/4
+            n = 90*(2*i + j + 1)/4
             plt_arr[i, j].imshow(rotate_image(img, n))
             plt_arr[i, j].set_title('angle = ' + str(n))
 
@@ -113,4 +113,3 @@ def main_py_plot():
 if __name__ == '__main__':
     # main_open_cv()
     main_py_plot()
-
