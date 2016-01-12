@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 def reduce_levels(img, n):
@@ -41,9 +42,9 @@ def display(img):
     cv2.destroyAllWindows()
 
 
-def main():
+def main_open_cv():
     # read image
-    img_file = 'motorhead.jpg'
+    img_file = 'ace_of_spades.jpg'
     img = cv2.imread(img_file)
     display(img)
 
@@ -63,6 +64,53 @@ def main():
     img2 = spatial_resolution_reduction(img, 9)
     display(img2)
 
+
+def main_py_plot():
+    # read image
+    img_file = 'ace_of_spades.jpg'
+    img = cv2.imread(img_file)
+
+    # Plot using matplotlib
+    # Need to swap channels BGR(OpenCV) -> RGB(PyPlot)
+    b, g, r = cv2.split(img)
+    img = cv2.merge((r, g, b))
+
+    f, plt_arr = plt.subplots(2, 2)
+    f.canvas.set_window_title('Quantization (Level Reduction)')
+    for i in range(2):
+        for j in range(2):
+            n = 2**(2*(3 - (2*i + j)) + 1)
+            plt_arr[i, j].imshow(reduce_levels(img, n))
+            plt_arr[i, j].set_title('n = ' + str(n))
+
+    f, plt_arr = plt.subplots(2, 2)
+    f.canvas.set_window_title('Spatial Averaging (Blur)')
+    for i in range(2):
+        for j in range(2):
+            n = 3**(2*i + j)
+            plt_arr[i, j].imshow(spatial_average(img, n))
+            plt_arr[i, j].set_title('n = ' + str(n))
+
+    f, plt_arr = plt.subplots(2, 2)
+    f.canvas.set_window_title('Rotation')
+    for i in range(2):
+        for j in range(2):
+            n = 90*(2*i + j + 1 )/4
+            plt_arr[i, j].imshow(rotate_image(img, n))
+            plt_arr[i, j].set_title('angle = ' + str(n))
+
+    f, plt_arr = plt.subplots(2, 2)
+    f.canvas.set_window_title('Spatial Resolution Reduction')
+    for i in range(2):
+        for j in range(2):
+            n = 4*(2*i + j) + 1
+            plt_arr[i, j].imshow(spatial_resolution_reduction(img, n))
+            plt_arr[i, j].set_title('n = ' + str(n))
+
+    plt.show()
+
+
 if __name__ == '__main__':
-    main()
+    # main_open_cv()
+    main_py_plot()
 
