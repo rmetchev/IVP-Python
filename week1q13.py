@@ -22,6 +22,9 @@ def rotate_image(img, angle):
 
 
 def spatial_resolution_reduction(img, n):
+    # (for now) restrict to odd numbers
+    if not n % 2:
+        raise ValueError("n must be an odd integer")
     # create new image with shape of img & all pixels having value of 0
     img_reduced = np.zeros(img.shape, dtype=np.uint8)
     # Populate every n-th pixel in both directions
@@ -57,7 +60,7 @@ def main():
     display(img2)
 
     # spatial resolution reduction
-    img2 = spatial_resolution_reduction(img, 8)
+    img2 = spatial_resolution_reduction(img, 9)
     display(img2)
 
 if __name__ == '__main__':
