@@ -67,13 +67,18 @@ def main_open_cv():
 
 def main_py_plot():
     # read image
-    img_file = 'ace_of_spades.jpg'
+    img_file = 'images/ace_of_spades.jpg'
+    # img_file = 'images/4.2.04.tiff'
+    # img_file = 'images/4.2.03.tiff'
+    # img_file = 'images/elaine.512.tiff'
     img = cv2.imread(img_file)
 
     # Plot using matplotlib
     # Need to swap channels BGR(OpenCV) -> RGB(PyPlot)
-    b, g, r = cv2.split(img)
-    img = cv2.merge((r, g, b))
+    print (img.shape[2])
+    if img.shape[2] == 3:
+        b, g, r = cv2.split(img)
+        img = cv2.merge((r, g, b))
 
     f, plt_arr = plt.subplots(2, 2)
     f.canvas.set_window_title('Quantization (Level Reduction)')
