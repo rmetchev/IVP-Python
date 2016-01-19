@@ -37,9 +37,9 @@ def main():
     plt_arr[1, 0].set_title(title)
     plt_arr[1, 0].plot(bins[:-1], hist)
     plt_arr[1, 0].set_xlim([0, 255])
-    print 'm=', mean
-    print u'\u03C3=', std_dev
-    print 'h=', entropy
+    #p rint 'm=', mean
+    #print u'\u03C3=', std_dev
+    #print 'h=', entropy
 
     for prediction, i in zip(('left', 'top', 'top-left'), range(1,4)):
         # Calculate predictor and residuals
@@ -75,15 +75,15 @@ def main():
         error_img = ((error + 255)/2).astype(np.uint8)
         plt_arr[0, i].set_title(title)
         plt_arr[0, i].imshow(error_img, cmap=cm.Greys_r, vmin=0, vmax=255, interpolation="nearest")
-        title = 'm=' + str(mean) + ', mse=' + str(mse) + u', \u03C3=' + str(std_dev) + ', H=' + str(entropy)
+        title = 'mean=' + str(mean) + ', mse=' + str(mse) + u', \u03C3=' + str(std_dev) + ', H=' + str(entropy)
         plt_arr[1, i].set_title(title)
         plt_arr[1, i].plot(bins[:-1], hist)
         plt_arr[1, i].set_xlim([-255, 255])
 
-        print 'm=', mean
-        print 'mse=', mse
-        print u'\u03C3=', std_dev
-        print 'H=', entropy
+        #print 'm=', mean
+        #print 'mse=', mse
+        #print u'\u03C3=', std_dev
+        #print 'H=', entropy
 
     fig_manager = plt.get_current_fig_manager()
     fig_manager.window.showMaximized()
